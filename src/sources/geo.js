@@ -1,6 +1,6 @@
-const geoip = require('geoip-lite')
+import geoip from 'geoip-lite'
 
-function getGeo (ip) {
+export function getGeo (ip) {
   const geo = geoip.lookup(ip)
 
   if (!geo) {
@@ -23,5 +23,3 @@ function getGeo (ip) {
 
   return location
 }
-
-module.exports = getGeo

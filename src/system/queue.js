@@ -1,6 +1,6 @@
-const EventEmitter = require('events')
+import EventEmitter from 'events'
 
-class DelayQueue extends EventEmitter {
+export class DelayQueue extends EventEmitter {
   queue = []
   lastResults = []
   delay = 200
@@ -80,5 +80,3 @@ class DelayQueue extends EventEmitter {
     this.running = false
   }
 }
-
-module.exports = DelayQueue

@@ -1,61 +1,60 @@
-const NewsAPI = require('newsapi')
-const newsapi = new NewsAPI(process.env.NEWSAPI_KEY)
-const DelayQueue = require('./queue')
+import NewsAPI from 'newsapi'
+import { DelayQueue } from '../system/queue'
 
-const queue = new DelayQueue(500).start(() => {
-  getHeadlines('us', 'business')
-  /*
-  getHeadlines('us', 'health')
-  getHeadlines('us', 'science')
-  getHeadlines('us', 'technology')
-  getHeadlines('de', 'business')
-  getHeadlines('de', 'health')
-  getHeadlines('de', 'science')
-  getHeadlines('de', 'technology')
-  getHeadlines('us', 'business')
-  getHeadlines('us', 'health')
-  getHeadlines('us', 'science')
-  getHeadlines('us', 'technology')
-  getHeadlines('il', 'business')
-  getHeadlines('il', 'health')
-  getHeadlines('il', 'science')
-  getHeadlines('il', 'technology')
-  getHeadlines('cn', 'business')
-  getHeadlines('cn', 'health')
-  getHeadlines('cn', 'science')
-  getHeadlines('cn', 'technology')
-  getHeadlines('au', 'business')
-  getHeadlines('au', 'health')
-  getHeadlines('au', 'science')
-  getHeadlines('au', 'technology')
-  */
-})
+const newsapi = new NewsAPI(process.env.NEWSAPI_KEY)
+const queue = new DelayQueue(500)
 
 /**
  *
  */
-function getHeadlines (country, category) {
-  queue.add(async () => new Promise(resolve => {
-    newsapi.v2.topHeadlines({
-      category,
+export function queueQuery (query, country, category) {
+  queue.add(queueQuery(query, country, category))
+}
+
+function contains (text = '', regex) {
+  return (text || '').match(regex) !== null
+}
+
+/**
+ *
+ */
+export async function newsQuery (query, country, category) {
+  return new Promise(resolve => {
+    const qRegex = new RegExp(query, 'i')
+
+    newsapi.v2.everything({
+      q: query,
       language: 'en',
-      country,
+      sortBy: 'publishedAt',
       pageSize: 100
     }).then(data => {
+      const articles = []
+
+      for (const article of data.articles) {
+        if (contains(article.url, qRegex) || 
+          contains(article.author, qRegex) || 
+          contains(article.title, qRegex) || 
+          contains(article.description, qRegex) || 
+          contains(article.context, qRegex)
+        ) {
+          articles.push(article)
+        } else {
+          continue
+        }
+      }
+
       resolve({
         country,
         category,
-        articles: data.articles
+        articles
       })
     })
-  }))
+  })
 }
 
 /**
  *
  */
-async function onNews (onNews) {
+export async function onNews (onNews) {
   queue.on('news', onNews)
 }
-
-module.exports = onNews

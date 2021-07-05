@@ -1,7 +1,3 @@
-const config = {
-  emptyArray: [],
-  emptyObject: {},
-  noop = () => {}
-}
-
-module.exports = config
+export const emptyArray = []
+export const emptyObject = {}
+export const noop = () => {}
