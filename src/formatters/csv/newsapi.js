@@ -1,9 +1,15 @@
 const quoteRegex = /"/g
 
+/**
+ * 
+ */
 function escape (text) {
-  return `"${text.replace(quoteRegex, '\"')}"`
+  return `"${(text || '').replace(quoteRegex, '\"')}"`
 }
 
+/**
+ * 
+ */
 export function newsApiToCsv (articles = []) {
   let body = ''
 
@@ -13,5 +19,4 @@ export function newsApiToCsv (articles = []) {
 
   return `author,url,publishedAt,title,description,content
 ${body}`
-
 }
