@@ -23,3 +23,12 @@ echo "Please place a NewsAPI key in the entry for NEWSAPI_KEY in the .env file
  * `./cli news "cell phones" -o csv > cellPhones.csv`
 * Fetch news about Jeff Bezos and send the output to a JSON file:
  * `./cli news "jeff bezos" -o json > bezos.json`
+
+### GeoIP
+
+* Fetch geolocation information about an IP and output it as text to the console:
+ * `./cli geoip 111.36.178.185`
+* Fetch geolocation information about an IP and send the output to a CSV file:
+ * `./cli geoip 111.36.178.185 -o csv > geoip.csv`
+* Fetch geolocation information about an IP and send the output to a JSON file:
+ * `./cli geoip 111.36.178.185 -o json > geoip.json`
