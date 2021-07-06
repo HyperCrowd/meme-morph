@@ -1,5 +1,5 @@
 import { cli } from '.'
 import './news'
-import './geoip'
+import './ip'
 
 cli.demandCommand(1).argv
