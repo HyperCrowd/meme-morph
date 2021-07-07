@@ -15,10 +15,11 @@ open https://iknowwhatyoudownload.com/en/api/
 echo "Please place a AntiTor key in the entry for ANTITOR_KEY in the .env file"
 ```
 
-# Developer Environment Setup
+## Developer Environment Setup
 
 * [Download and install VSCode](https://code.visualstudio.com/download)
 * For Windows users, [prepare your machine to deal with WSLs](https://www.windowscentral.com/install-windows-subsystem-linux-windows-10).
+   * Then [install Ubuntu 20.04](https://www.microsoft.com/en-us/p/ubuntu-2004-lts/9n6svws3rx71)
 * For OSX users, [install Brew](https://brew.sh/): `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
 * Open VSCode, open a terminal, and do the following:
 
@@ -43,6 +44,7 @@ touch ~/.ssh/config
 sudo chmod 0600 ~/.ssh/config
 mkdir ~/projects
 ```
+
 * Install the following extensions for VSCode:
 
 ```text

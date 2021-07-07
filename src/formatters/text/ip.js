@@ -2,7 +2,6 @@ export function ipToText (geo, torrent) {
   let contents = ''
 
   for (const content of torrent.contents) {
-    console.log(content)
     contents += `
 IMDB ID: ${content.imdbId || 'N/A'}
 Name: ${content.name}
