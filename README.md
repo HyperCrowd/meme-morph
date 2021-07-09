@@ -13,6 +13,8 @@ open https://newsapi.org/register
 echo "Please place a NewsAPI key in the entry for NEWSAPI_KEY in the .env file"
 open https://iknowwhatyoudownload.com/en/api/
 echo "Please place a AntiTor key in the entry for ANTITOR_KEY in the .env file"
+open https://developer.twitter.com/en/portal/dashboard
+echo "Please create a Twitter developer account for TWITTER_BEARER_TOKEN in the .env file"
 ```
 
 ## Developer Environment Setup

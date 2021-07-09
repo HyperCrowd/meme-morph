@@ -1,5 +1,3 @@
-let contents = 'num,timestamp,email,name,comment,poster_hash,poster_country,reply_count,image_count,exif,media_filename,media_width,media_height,media_link\n'
-
 export function chanToText (posts) {
   let contents = ''
 
