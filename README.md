@@ -13,6 +13,8 @@ open https://newsapi.org/register
 echo "Please place a NewsAPI key in the entry for NEWSAPI_KEY in the .env file"
 open https://iknowwhatyoudownload.com/en/api/
 echo "Please place a AntiTor key in the entry for ANTITOR_KEY in the .env file"
+open https://developer.twitter.com/en/portal/dashboard
+echo "Please create a Twitter developer account for TWITTER_BEARER_TOKEN in the .env file"
 ```
 
 ## Developer Environment Setup
@@ -82,3 +84,12 @@ prisma.prisma
  * `./cli ip 111.36.178.185 -o csv > 111.36.178.185.csv`
 * Fetch geolocation and torrent information about an IP and send the output to a JSON file:
  * `./cli ip 111.36.178.185 -o json > 111.36.178.185.json`
+
+ ### REDDIT
+
+* Fetch Reddit posts about a topic and output it as text to the console:
+ * `./cli reddit covid`
+* Fetch Reddit posts about a topic and send the output to a CSV file:
+ * `./cli reddit covid -o csv > 111.36.178.185.csv`
+* Fetch Reddit posts about an topic and send the output to a JSON file:
+ * `./cli reddit covid -o json > 111.36.178.185.json`
