@@ -4,4 +4,6 @@ import './ip'
 import './chan'
 import './reddit'
 
-cli.demandCommand(1).argv
+cli
+  .demandCommand(1)
+  .argv

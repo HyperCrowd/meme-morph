@@ -15,6 +15,12 @@ cli
         describe: 'Board name',
         default: 'pol'
       })
+      .option('output', {
+        alias: 'o',
+        type: 'string',
+        default: 'text',
+        description: 'Output format'
+      })
   }, async argv => {
     const posts = await search4Plebs(argv.query, argv.board)
     let output
@@ -33,10 +39,3 @@ cli
 
     console.log(output)
   })
-  .option('output', {
-    alias: 'o',
-    type: 'string',
-    default: 'text',
-    description: 'Output format'
-  })
-    

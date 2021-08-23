@@ -11,6 +11,12 @@ cli
         describe: 'Query',
         default: undefined
       })
+      .option('output', {
+        alias: 'o',
+        type: 'string',
+        default: 'text',
+        description: 'Output format'
+      })    
   }, async argv => {
     const posts = await searchReddit(argv.query)
     let output
@@ -29,10 +35,3 @@ cli
 
     console.log(output)
   })
-  .option('output', {
-    alias: 'o',
-    type: 'string',
-    default: 'text',
-    description: 'Output format'
-  })
-    

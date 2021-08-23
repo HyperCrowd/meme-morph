@@ -11,6 +11,18 @@ cli
         describe: 'Text to search for',
         default: undefined
       })
+      .option('country', {
+        alias: 'c',
+        type: 'string',
+        default: 'us',
+        description: 'Country to select for'
+      })
+      .option('output', {
+        alias: 'o',
+        type: 'string',
+        default: 'text',
+        description: 'Output format'
+      })    
   }, async argv => {
     const result = await newsQuery(argv.query, argv.country)
     let output
@@ -29,16 +41,3 @@ cli
 
     console.log(output)
   })
-  .option('country', {
-    alias: 'c',
-    type: 'string',
-    default: 'us',
-    description: 'Country to select for'
-  })
-  .option('output', {
-    alias: 'o',
-    type: 'string',
-    default: 'text',
-    description: 'Output format'
-  })
-    
