@@ -8,6 +8,10 @@ Meme Morph tracks the evolution of memes
 git clone git@github.com:HyperCrowd/meme-morph.git
 cd meme-morph
 yarn install
+sudo ln -s "$NVM_DIR/versions/node/$(nvm version)/bin/node" "/usr/local/bin/node"
+sudo ln -s "$NVM_DIR/versions/node/$(nvm version)/bin/npm" "/usr/local/bin/npm"
+sudo ln -s "$NVM_DIR/versions/node/$(nvm version)/bin/npx" "/usr/local/bin/npx"
+sudo npx playwright install-deps
 cp .env.sample .env
 open https://newsapi.org/register
 echo "Please place a NewsAPI key in the entry for NEWSAPI_KEY in the .env file"
@@ -84,6 +88,8 @@ prisma.prisma
  * `./cli ip 111.36.178.185 -o csv > 111.36.178.185.csv`
 * Fetch geolocation and torrent information about an IP and send the output to a JSON file:
  * `./cli ip 111.36.178.185 -o json > 111.36.178.185.json`
+* Fetch geolocation and torrent information about a file of IPs (separated by new lines) and send the output to a CSV file:
+ * `./cli ip "/path/to/ip/list" -o csv > 111.36.178.185.csv`
 
  ### REDDIT
 
