@@ -52,11 +52,9 @@ cli
   }, async argv => {
     const isIp = argv.ip.toString().match(ipRegex) !== null
 
-    let output = ''
-
     if (isIp) {
       // Checking a single IP
-      output = await getDetails(argv.ip, argv.output)
+      const output = await getDetails(argv.ip, argv.output)
       console.log(output)
     } else {
       // Checking many IPs
@@ -64,7 +62,7 @@ cli
       const ips = (await readFile(ipsFilepath)).toString().split('\n')
       
       for (const ip of ips) {
-        output += await getDetails(ip, argv.output)
+        const output = await getDetails(ip, argv.output)
         console.log(output)
         delay(1000)
       }
