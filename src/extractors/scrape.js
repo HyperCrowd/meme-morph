@@ -4,7 +4,7 @@ const { webkit } = require('playwright')
 const scrapeBrowers = process.env.SCRAPE_BROWSERS || 'webkit'
 const browserTypes = scrapeBrowers.split(',')
 const headless = process.env.SCRAPE_HEADLESS === undefined
-  ? true // @TODO change to true
+  ? true
   : process.env.SCRAPE_HEADLESS === '1'
 
 export async function scrape (url, onLoad) {
@@ -33,8 +33,9 @@ export async function scrape (url, onLoad) {
         "upgrade-insecure-requests": "1"
       })
       await page.goto(url)
-      await onLoad(page, browser)
+      const results = await onLoad(page, browser)
       await browser.close()
+      return results
     } catch (e) {
       console.error(e)
     }
