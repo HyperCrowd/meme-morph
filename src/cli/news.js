@@ -22,9 +22,21 @@ cli
         type: 'string',
         default: 'text',
         description: 'Output format'
-      })    
+      })
+      .option('from', {
+        alias: 'f',
+        type: 'string',
+        default: 'us',
+        description: 'Datetime to start search'
+      })
+      .option('to', {
+        alias: 't',
+        type: 'string',
+        default: 'us',
+        description: 'Datetime to end search'
+      })
   }, async argv => {
-    const result = await newsQuery(argv.query, argv.country)
+    const result = await newsQuery(argv.query, argv.country, argv.from, argv.to)
     let output
 
     switch (argv.output) {

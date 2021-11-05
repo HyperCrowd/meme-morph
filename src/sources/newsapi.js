@@ -16,15 +16,17 @@ function contains (text = '', regex) {
 }
 
 /**
- *
+ * 
  */
-export async function newsQuery (query, country, category) {
+export async function newsQuery (query, country, from = new Date(0).toISOString(), to = new Date().toISOString()) {
   return new Promise(resolve => {
     const qRegex = new RegExp(query, 'i')
 
     newsapi.v2.everything({
       q: query,
       language: 'en',
+      from,
+      to,
       sortBy: 'publishedAt',
       pageSize: 100
     }).then(data => {
@@ -45,7 +47,8 @@ export async function newsQuery (query, country, category) {
 
       resolve({
         country,
-        category,
+        from,
+        to,
         articles
       })
     })
