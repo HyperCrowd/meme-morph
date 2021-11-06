@@ -25,6 +25,7 @@
     "node-fetch": "2.6.1",
     "node-mattermost": "^0.0.1",
     "playwright": "^1.14.0",
+    "twitter-v2": "^1.1.0",
     "wink-nlp-utils": "^2.0.6",
     "yargs": "^17.0.1"
   }

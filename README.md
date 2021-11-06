@@ -5,6 +5,7 @@ Meme Morph tracks the evolution of memes
 ## Installation
 
 ```bash
+sudo apt install build-essential
 git clone git@github.com:HyperCrowd/meme-morph.git
 cd meme-morph
 yarn install
