@@ -23,7 +23,7 @@ cli
 
     switch (argv.output) {
       case 'text':
-        output = redditToText(posts)
+        output = redditToText(posts) || 'None'
         break
       case 'csv':
         output = chanToCsv(posts)

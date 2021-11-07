@@ -26,7 +26,7 @@ async function getDetails (ip, outputMode) {
     case 'csv':
       return ipToCsv(geo, torrent)
     case 'text':
-      return ipToText(geo, torrent)
+      return ipToText(geo, torrent) || 'None'
     case 'json':
       return ipToJson(geo, torrent)
   }

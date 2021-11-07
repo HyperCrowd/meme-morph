@@ -17,22 +17,40 @@ cli
         default: 'text',
         description: 'Output format'
       })
+      .option('from', {
+        alias: 'f',
+        type: 'string',
+        default: undefined,
+        description: 'Datetime to start search'
+      })
+      .option('to', {
+        alias: 't',
+        type: 'string',
+        default: undefined,
+        description: 'Datetime to end search'
+      })
+      .option('likes', {
+        alias: 'l',
+        type: 'number',
+        default: 0,
+        description: 'Minimum number of likes a tweet has to have'
+      })
   }, async argv => {
-    const tweets = await searchTwitter(argv.query)
+    const tweets = await searchTwitter(argv.query, argv.from, argv.to, argv.likes)
 
     let output
 
     switch (argv.output) {
       case 'text':
-        output = twitterToText(tweets)
+        output = twitterToText(tweets) || 'None'
         break
       case 'csv':
         output = twitterToCsv(tweets)
         break
       case 'json':
         output = twitterToJson(tweets)
-        break
+        break 
     }
-
+    
     console.log(output)
   })

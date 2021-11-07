@@ -30,7 +30,7 @@ cli
         output = chanToCsv(posts)
         break
       case 'text':
-        output = chanToText(posts)
+        output = chanToText(posts) || 'None'
         break
       case 'json':
         output = chanToJson(posts)

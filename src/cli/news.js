@@ -41,7 +41,7 @@ cli
 
     switch (argv.output) {
       case 'csv':
-        output = newsApiToCsv(result.articles)
+        output = newsApiToCsv(result.articles) || 'None'
         break
       case 'text':
         output = newsApiToText(result.articles)
