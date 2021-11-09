@@ -19,6 +19,10 @@ export const searchTwitter = async (query, from, to, minFaves) => {
   })
 
   return data.filter(tweet => {
+    if (tweet.text.substr(0, 3) === 'RT ') {
+      return false
+    }
+
     const date = new Date(tweet.created_at)
 
     const isInDateRange = date > since && date < until
