@@ -5,7 +5,7 @@ const wait = async (timeout = 1000) => new Promise(resolve => setTimeout(resolve
 
 const eventsToAscii = (events) => spark_line(events.map(event => event.value))
 
-export const searchGoogleTrends = async (keyword, from, to) => {
+export const searchGoogleTrends = async (keywords, from, to) => {
   const startTime = new Date(from === undefined
     ? Date.now() - (3600 * 1000)
     : from
@@ -15,72 +15,76 @@ export const searchGoogleTrends = async (keyword, from, to) => {
     : to
   )
 
-  const lowerCase = keyword.toLowerCase()
+  const results = {}
+  const queries = keywords.split(',').map(k => k.trim())
 
-  const autoComplete = JSON.parse((await googleTrends.autoComplete({
-    keyword
-  }))).default.topics
-    .filter(topic => topic.title.toLowerCase() !== lowerCase)
-    .map(topic => `${topic.title} (${topic.type})`)
+  for (const keyword of queries) {    
+    results[keyword] = {}
+    const result = results[keyword]
+    const lowerCase = keyword.toLowerCase()
 
-  await wait()
+    result.autoComplete = JSON.parse((await googleTrends.autoComplete({
+      keyword
+    }))).default.topics
+      .filter(topic => topic.title.toLowerCase() !== lowerCase)
+      .map(topic => `${topic.title} (${topic.type})`)
 
-  const interestOverTimeResponse = JSON.parse(await googleTrends.interestOverTime({
-    keyword,
-    startTime,
-    endTime,
-    granularTimeResolution: true
-  })).default.timelineData.map(event => {
-    return {
-      time: parseInt(event.time),
-      value: event.value[0]
+    await wait()
+
+    const interestOverTimeResponse = JSON.parse(await googleTrends.interestOverTime({
+      keyword,
+      startTime,
+      endTime,
+      granularTimeResolution: true
+    })).default.timelineData.map(event => {
+      return {
+        time: parseInt(event.time),
+        value: event.value[0]
+      }
+    })
+
+    const interestOverTimeGraph = eventsToAscii(interestOverTimeResponse)
+    result.interestOverTime = {
+      data: interestOverTimeResponse,
+      graph: interestOverTimeGraph
     }
-  })
 
-  const interestOverTimeGraph = eventsToAscii(interestOverTimeResponse)
-  const interestOverTime = {
-    data: interestOverTimeResponse,
-    graph: interestOverTimeGraph
+    await wait()
+
+    const relatedQueriesResponse = JSON.parse((await googleTrends.relatedQueries({
+      keyword
+    }))).default.rankedList
+    
+    result.relatedQueries = []
+    
+    relatedQueriesResponse.forEach(entry => {
+      entry.rankedKeyword.map(rankedKeyword => {
+        if (result.relatedQueries.indexOf(rankedKeyword.query) === -1) {
+          result.relatedQueries.push(rankedKeyword.query)
+        }
+      })
+    })
+
+    await wait()
+
+    const relatedTopicsResponse = JSON.parse((await googleTrends.relatedTopics({
+      keyword,
+      startTime,
+      endTime
+    }))).default.rankedList
+
+    result.relatedTopics = []
+    
+    relatedTopicsResponse.forEach(entry => {
+      entry.rankedKeyword.map(rankedKeyword => {
+        if (result.relatedQueries.indexOf(rankedKeyword.query) === -1) {
+          result.relatedQueries.push(rankedKeyword.query)
+        }
+      })
+    })
+
+    await wait()
   }
 
-  await wait()
-
-  const relatedQueriesResponse = JSON.parse((await googleTrends.relatedQueries({
-    keyword
-  }))).default.rankedList
-  
-  const relatedQueries = []
-  
-  relatedQueriesResponse.forEach(entry => {
-    entry.rankedKeyword.map(rankedKeyword => {
-      if (relatedQueries.indexOf(rankedKeyword.query) === -1) {
-        relatedQueries.push(rankedKeyword.query)
-      }
-    })
-  })
-
-  await wait()
-
-  const relatedTopicsResponse = JSON.parse((await googleTrends.relatedTopics({
-    keyword,
-    startTime,
-    endTime
-  }))).default.rankedList
-
-  const relatedTopics = []
-  
-  relatedTopicsResponse.forEach(entry => {
-    entry.rankedKeyword.map(rankedKeyword => {
-      if (relatedQueries.indexOf(rankedKeyword.query) === -1) {
-        relatedQueries.push(rankedKeyword.query)
-      }
-    })
-  })
-
-  return {
-    autoComplete,
-    interestOverTime,
-    relatedQueries,
-    relatedTopics
-  }
+  return results
 }

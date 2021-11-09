@@ -5,6 +5,7 @@ import './chan'
 import './reddit'
 import './twitter'
 import './googleTrends'
+import './youtube'
 
 cli
   .demandCommand(1)

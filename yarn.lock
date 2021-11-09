@@ -14,6 +14,11 @@
   dependencies:
     "@types/node" "*"
 
+"@yimura/scraper@^1.2.3":
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/@yimura/scraper/-/scraper-1.2.3.tgz#ca90d9748b8eeb3b04e87cf62b3ea82a1eedc0c6"
+  integrity sha512-4wuTvMnkH/3j+FVL1sV9z+VFZPxAJAciYoZoa+By8ljxF0PYYhB162q2eW+3lzkONFsXcvg6Hjm22rBEhwxujA==
+
 abort-controller@3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/abort-controller/-/abort-controller-3.0.0.tgz#eaf54d53b62bae4138e809ca225c8439a6efb392"
