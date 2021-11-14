@@ -7,4 +7,5 @@ import './twitter'
 
 cli
   .demandCommand(1)
+  .exitProcess(false)
   .argv
