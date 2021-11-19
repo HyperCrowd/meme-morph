@@ -14,7 +14,7 @@ export const searchTwitter = async (query, from, to, minFaves) => {
     bearer_token: process.env.TWITTER_BEARER_TOKEN
   })
 
-  const { data } = await client.get('tweets/search/recent', {
+  const { data = [] } = await client.get('tweets/search/recent', {
     query: getTwitterQuery(query),
     'tweet.fields': 'in_reply_to_user_id,author_id,public_metrics,reply_settings,withheld,created_at'
   })

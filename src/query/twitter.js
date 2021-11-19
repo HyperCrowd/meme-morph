@@ -10,4 +10,6 @@ export function getTwitterQuery (keywords) {
   if (result.length > 512) {
     throw new RangeError(`${result} is longer than 512 characters`)
   }
+
+  return result
 }
