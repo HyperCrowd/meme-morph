@@ -7,7 +7,9 @@ import './twitter'
 import './googleTrends'
 import './youtube'
 
-cli
-  .demandCommand(1)
-  .exitProcess(false)
-  .argv
+export async function run () {
+  return cli
+    .demandCommand(1)
+    .exitProcess(false)
+    .parse()
+}

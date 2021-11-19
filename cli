@@ -2,16 +2,22 @@
 require = require('esm')(module/*, options*/)
 require('dotenv').config()
 
-const { lockCheck, removeLock } = require('./src/system/lock')
 const exitHook = require('async-exit-hook')
+const { lockCheck, removeLock } = require('./src/system/lock')
+const { run } = require('./src/cli/runner.js')
 
-exitHook(async () => {
+exitHook(async err => {
   await removeLock()
-});
+  process.exit(0)
+})
 
 async function waitForUnlock () {
   await lockCheck()
-  require('./src/cli/runner.js')
+
+  try {
+    await run()
+  } catch (e) {}
+
   await removeLock()
 }
 

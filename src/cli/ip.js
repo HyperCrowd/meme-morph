@@ -45,7 +45,7 @@ cli
       .option('output', {
         alias: 'o',
         type: 'string',
-        default: 'text',
+        default: 'json',
         description: 'Output format'
       })
     

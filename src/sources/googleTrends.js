@@ -1,9 +1,12 @@
 import googleTrends from 'google-trends-api'
 import { spark_line } from 'ascii-graphs'
+import { getGoogleTrendsQuery } from '../query/googleTrends'
 
 const wait = async (timeout = 1000) => new Promise(resolve => setTimeout(resolve, timeout))
 
 const eventsToAscii = (events) => spark_line(events.map(event => event.value))
+
+// https://developers.google.com/apis-explorer
 
 export const searchGoogleTrends = async (keywords, from, to) => {
   const startTime = new Date(from === undefined
@@ -16,7 +19,7 @@ export const searchGoogleTrends = async (keywords, from, to) => {
   )
 
   const results = {}
-  const queries = keywords.split(',').map(k => k.trim())
+  const queries = getGoogleTrendsQuery(keywords)
 
   for (const keyword of queries) {    
     results[keyword] = {}
