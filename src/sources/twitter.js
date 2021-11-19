@@ -19,7 +19,7 @@ export const searchTwitter = async (query, from, to, minFaves) => {
     'tweet.fields': 'in_reply_to_user_id,author_id,public_metrics,reply_settings,withheld,created_at'
   })
 
-  return data.filter(tweet => {
+  const tweets = data.filter(tweet => {
     if (tweet.text.substr(0, 3) === 'RT ') {
       return false
     }
@@ -34,4 +34,8 @@ export const searchTwitter = async (query, from, to, minFaves) => {
     
     return isInDateRange && isMinFaved
   })
+
+  return {
+    [query]: tweets
+  }
 }
