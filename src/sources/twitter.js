@@ -1,4 +1,5 @@
-const Twitter = require('twitter-v2');
+const Twitter = require('twitter-v2')
+const { getTwitterQuery } = require('../query/twitter')
 
 export const searchTwitter = async (query, from, to, minFaves) => {
   const since = from === undefined
@@ -14,7 +15,7 @@ export const searchTwitter = async (query, from, to, minFaves) => {
   })
 
   const { data } = await client.get('tweets/search/recent', {
-    query,
+    query: getTwitterQuery(query),
     'tweet.fields': 'in_reply_to_user_id,author_id,public_metrics,reply_settings,withheld,created_at'
   })
 
