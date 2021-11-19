@@ -1,11 +1,12 @@
 import Scraper from '@yimura/scraper'
+import { getYoutubeQuery } from '../query/youtube'
 
 const wait = async (timeout = 1000) => new Promise(resolve => setTimeout(resolve, timeout))
 
 export const searchYoutube = async (keywords) => {
 
   const youtube = new Scraper.default()
-  const queries = keywords.split(',').map(k => k.trim())
+  const queries = getYoutubeQuery(keywords)
 
   const results = {}
   
