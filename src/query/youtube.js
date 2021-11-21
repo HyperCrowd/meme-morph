@@ -3,7 +3,10 @@ export function getYoutubeQuery (keywords) {
     .toLowerCase()
     .split(',')
     .map(word => {
-      return '"' + word.trim() + '"'
+      return {
+        word,
+        query: '"' + word.trim() + '"'
+      }
     })
 
   return result

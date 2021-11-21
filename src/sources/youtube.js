@@ -11,13 +11,13 @@ export const searchYoutube = async (keywords) => {
   const results = {}
   
   for (const query of queries) {
-    results[query] = {
+    results[query.word] = {
       videos: [],
       streams: []
     }
 
-    const result = results[query]
-    const response = await youtube.search(query)
+    const result = results[query.word]
+    const response = await youtube.search(query.query)
 
     response.videos
       .filter(video => video.uploaded.indexOf('1 hour ago') > -1 || video.uploaded.indexOf('2 hours ago') > -1)
@@ -29,11 +29,11 @@ export const searchYoutube = async (keywords) => {
           id: video.id,
           title: video.title,
           channel: video.channel === undefined
-           ? false
-           : video.channel.name,
+            ? false
+            : video.channel.name,
           channelUrl: video.channel === undefined
-           ? false
-           : video.channel.link
+            ? false
+            : video.channel.link
         })
       })
 
