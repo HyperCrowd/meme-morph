@@ -30,8 +30,8 @@ export async function searchReddit (query, from, to, size=2000) {
     }`
 
   for (const q of queries) {
-    const submissionResponse = await fetch(`https://api.pushshift.io/reddit/search/submission/?q=${(q)}&size=${size}${after}${before}&sort_type=created_utc&sort=desc`)
-    const commentResponse = await fetch(`https://api.pushshift.io/reddit/search/comment/?q=${(q)}&size=${size}${after}${before}&sort_type=created_utc&sort=desc`)
+    const submissionResponse = await fetch(`https://api.pushshift.io/reddit/search/submission/?q=${(q.query)}&size=${size}${after}${before}&sort_type=created_utc&sort=desc`)
+    const commentResponse = await fetch(`https://api.pushshift.io/reddit/search/comment/?q=${(q.query)}&size=${size}${after}${before}&sort_type=created_utc&sort=desc`)
 
     const submissions = await submissionResponse.json()
     const comments = await commentResponse.json()
@@ -39,7 +39,7 @@ export async function searchReddit (query, from, to, size=2000) {
     submissions.data.forEach(submission => submission.created_utc = new Date(submission.created_utc * 1000).toISOString())
     comments.data.forEach(submission => submission.created_utc = new Date(submission.created_utc * 1000).toISOString())
 
-    result[q] = {
+    result[q.word] = {
       submissions,
       comments
     }

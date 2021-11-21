@@ -3,6 +3,9 @@ export function getRedditQuery (keywords) {
     .toLowerCase()
     .split(',')
     .map(word => {
-      return encodeURIComponent('"' + word.trim() + '"')
+      return {
+        word,
+        query: encodeURIComponent('"' + word.trim() + '"')
+      }
     })
 }
