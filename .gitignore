@@ -2,3 +2,4 @@ node_modules
 .env
 yarn-error.log
 .lock
+.DS_Store
